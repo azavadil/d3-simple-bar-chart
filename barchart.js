@@ -3,23 +3,24 @@ app.directive('lineChart', function(){
   function link(scope, el, attr){
 
 
-
-    var margin = {top:20, right:20, bottom: 30, left:40};
+    console.log(scope.data);
+    var margin = {top:0, right:20, bottom: 0, left:40};
     var width = 960 - margin.left - margin.right;
     var height = 500 - margin.top - margin.bottom;
 
 
+
     var y = d3.scale.linear()
-      .range([height, 0]);
+      .range([0, height]);
   
     // var xAxis = d3.svg.axis()
     //   .scale(x)
     //   .orient("bottom");
 
-    var yAxis = d3.svg.axis()
-      .scale(y)
-      .orient("left")
-      .ticks(10, "%");
+    // var yAxis = d3.svg.axis()
+    //   .scale(y)
+    //   .orient("left")
+    //   .ticks(10, "%");
 
     var svg = d3.select(el[0]).append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -32,20 +33,32 @@ app.directive('lineChart', function(){
     //     .attr("transform", "translate(0" + height + ")")
     //     .call(xAxis);
 
-    var barWidth = 200;
+    var barWidth = 100;
 
     var bar = svg.selectAll("g")
-        .data(scope.data[0])
+        .data([scope.data[0]])
       .enter().append("g");
 
-    console.log(bar);
+    // y is the y position
+    // height is the height from the y position
+    // TODO: put back to d.votes
+
+    // if votes is postive then we build the rectangle from the middle
+    // to the top
+    // if votes is negative then we build the rectange from the
+    // the bottom 
+    
+
+
 
     bar.append("rect")
       .attr("y", function(d){ 
-        console.log("votes:", d.votes);
-          return y(d.votes)})
-      .attr("height", function(d){ return height - y(d.votes); })
-      .attr("width", barWidth);
+          var bottomOfBar = d.votes >= 0 ? 0.5 : 0.5 + 0.5*Math.abs(d.votes/d.voteTotal);
+          console.log('bob', bottomOfBar, "y(bob)", y(bottomOfBar), 'height', y(d.votes/d.voteTotal));
+          return y(bottomOfBar) + margin.top; })
+      .attr("height", function(d){ return y(0.5*Math.abs(d.votes/d.voteTotal)); })
+      .attr("width", barWidth)
+      .attr("class", "thermometer");
 
     svg.append("g")
         // .attr("class", "y axis")
@@ -55,7 +68,7 @@ app.directive('lineChart', function(){
         .attr("y", 6)
         .attr("dy", ".71em")
         .style("text-anchor", "end")
-        .text("Votes")
+        .text("% Hot")
 
     // svg.selectAll(".bar")
     //   .data(scope.data)
@@ -79,3 +92,11 @@ app.directive('lineChart', function(){
   };
 
 });
+
+
+/*
+ 0: 450
+ 0.1: 405
+ 0.2: 360
+ 0.3: 315
+ */ 
