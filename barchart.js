@@ -12,15 +12,19 @@ app.directive('lineChart', function(){
 
     var y = d3.scale.linear()
       .range([0, height]);
+
+    var yAxisScale = d3.scale.linear()
+      .domain([-1,1])
+      .range([height, 0]);
   
     // var xAxis = d3.svg.axis()
     //   .scale(x)
     //   .orient("bottom");
 
-    // var yAxis = d3.svg.axis()
-    //   .scale(y)
-    //   .orient("left")
-    //   .ticks(10, "%");
+    var yAxis = d3.svg.axis()
+      .scale(yAxisScale)
+      .orient("left")
+      .ticks(10, "%");
 
     var svg = d3.select(el[0]).append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -61,8 +65,8 @@ app.directive('lineChart', function(){
       .attr("class", "thermometer");
 
     svg.append("g")
-        // .attr("class", "y axis")
-        // .call(yAxis)
+        .attr("class", "y axis")
+        .call(yAxis)
       .append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 6)
@@ -70,14 +74,6 @@ app.directive('lineChart', function(){
         .style("text-anchor", "end")
         .text("% Hot")
 
-    // svg.selectAll(".bar")
-    //   .data(scope.data)
-    // .enter().append("rect")
-    //   .attr("class", "bar")
-    //   .attr("x", function(d) { return x(d.votes); })
-    //   .attr("width", x.rangeBand())
-    //   .attr("y", function(d) { return y(d.votes); })
-    //   .attr("height", function(d) { return height - y(d.frequency); });
 
      scope.$watch('data', function(data){
       //watch code here
