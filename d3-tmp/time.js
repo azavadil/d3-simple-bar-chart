@@ -31,7 +31,7 @@ var draw0 = function(data){
 
   for(var i = 0; i < 10; i++){
     console.log(time[i]);
-    var timeText = "time: " + time[i].time + " scale(time): " + time_scale(time[i].time);
+    var timeText = "time: " + time[i].time + " sscale(time): " + time_scale(time[i].time);
     var timeDiv = $("<div>", {class: "time_scale"}).text(timeText);
     $("body").append(timeDiv);
   }
