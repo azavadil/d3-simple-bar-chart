@@ -54,13 +54,15 @@ params.height = 300;
 function draw2(data){
   d3.select("body")
     .append("svg")
-      .attr("width", param.width)
+      .attr("width", params.width)
       .attr("height", params.height)
     .selectAll("circle") // empty selection
     .data(data)  // join with data
     .enter()  // get enter selection
     append("circle");  // append as circle
 }
+
+
 
 // finding min and max values
 // d3.extent is how you find the min and max values of data
@@ -94,3 +96,5 @@ draw1(data1);
 
   2. using .call() to actually draw the axis. All this does is call the
      the time_axis function, passing in the current selection.
+
+*/
