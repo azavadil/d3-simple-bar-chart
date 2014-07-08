@@ -1,3 +1,50 @@
-.circle {
-  fill: "black";
+
+.axis path{ 
+  fill:none;
+  stroke: black; 
+}
+
+.axis { 
+  font-size:8pt;
+  font-family:sans-serif; 
+}
+.tick { 
+  fill:none;
+  stroke:black; 
+}
+
+circle { 
+  stroke:black;
+  stroke-width:0.5px; 
+  fill:RoyalBlue; 
+  opacity:0.6;
+}
+
+.axis {
+  font-family: arial; 
+  font-size:0.6em;
+}
+
+path {
+  fill:none; 
+  stroke:black; 
+  stroke-width:2px;
+}
+
+.tick {
+  fill:none;
+  stroke:black; 
+}
+
+circle{ 
+  stroke:black;
+  stroke-width:0.5px; 
+}
+
+circle.times_square{
+  fill:DeepPink; 
+}
+
+circle.grand_central{
+  fill:MediumSeaGreen; 
 }

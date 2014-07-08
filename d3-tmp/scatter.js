@@ -119,6 +119,10 @@ var draw0 = function(data){
         .scale(xScale)
         .orient("bottom"));
 
+    unlike the x-axis we need to use orient method to set the axis orientation
+    to left and we need to move the y-axis in from the enclosing element
+    by margin px.
+
   */
 
 
@@ -128,7 +132,31 @@ var draw0 = function(data){
       .attr("transform", "translate(" + margin + ", 0 )")
     .call(y_axis);
 
+  /**
+   * Adding axis titles
+   * x axis: select the x-axis group, append a text element, specify its
+             text content as well as its x and y coords relative to the 
+             top left corner of the group element (i.e. the x-axis group)
+     y axis: rotation and translation
+             to rotate SVG text we specify the amount by which we'd like to
+             rotate, in degrees, and the x,y coords of the point to rotate
+             around
+             concretely,  we create text at the top of the axis group,
+             specify a rotation that transforms the text through 90 degrees
+             about a point to the left of the top corner,and translate the 
+             label down into place
+  */
 
+  d3.select(".x.axis")
+    .append("text")
+      .text("collisions with injury (per million miles)")
+      .attr("x", (width/2) - margin)
+      .attr("y", margin / 1.5);
+
+  d3.select(".y.axis")
+    .append("text")
+    .text("mean distance between failure (miles)")
+    .attr("transform", "rotate (-90, -43, 0) translate (-280)");
 
 } 
 
